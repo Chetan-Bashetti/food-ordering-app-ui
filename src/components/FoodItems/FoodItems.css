@@ -1,0 +1,46 @@
+.food-items-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0 1em;
+	overflow: hidden;
+}
+.main-categories-wrapper {
+	display: flex;
+	flex-direction: row;
+	overflow-x: scroll;
+	margin: 0.1em 0;
+}
+
+.each-category {
+	padding: 0.5em 1em;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.each-category::first-letter {
+	text-transform: capitalize;
+}
+
+.food-items {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+}
+
+.each-item {
+	border: 1px solid red;
+	padding: 1em;
+	margin: 0.3em 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.each-item-title::first-letter {
+	text-transform: capitalize;
+}
+
+.border {
+	border-radius: 25px;
+}

@@ -1,0 +1,26 @@
+body,
+html {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+}
+
+#root {
+	height: 100vh;
+	display: flex;
+	--primary-color: coral;
+	--secondary-color: black;
+
+	--test-first-color: #2f1c6b;
+	--test-second-color: #5125d2;
+	--test-third-color: #673ee4;
+	--test-fourth-color: #8e85ff;
+	--test-fifth-color: #d5e0ff;
+}
+
+.app {
+	display: flex;
+	flex: 1;
+	border: 1px solid black;
+	overflow-x: hidden;
+}
