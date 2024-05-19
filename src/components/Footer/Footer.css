@@ -1,3 +1,15 @@
 .footer-wrapper {
 	padding: 1em;
 }
+.total-charges {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0.5em;
+	font-weight: 600;
+	padding: 0 1em;
+	align-items: center;
+}
+
+.footer-checkout {
+	display: flex;
+}
