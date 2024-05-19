@@ -13,7 +13,7 @@ const Header = () => {
 		<div className='header-wrapper'>
 			<div className='header-title'>Suburb.cafe</div>
 			<div className='cart-icon'>
-				<div className='notification'>{cartCount}</div>
+				{cartCount > 0 ? <div className='notification'>{cartCount}</div> : ''}
 				<ShoppingCartIcon />
 			</div>
 		</div>
