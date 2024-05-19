@@ -1,0 +1,33 @@
+.status-wrapper {
+	padding: 1em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	box-shadow: 0 -2px 6px 0 #dddddd;
+	align-items: center;
+}
+
+.order-summary-text {
+	font-weight: 600;
+}
+
+.status-text {
+	padding: 0.5em 1em;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	font-size: 0.9em;
+	border-radius: 7px;
+}
+
+.pending {
+	background: var(--primary-color);
+}
+
+.delivered {
+	background: #5fb100;
+}
+
+.cancalled {
+	background: red;
+}

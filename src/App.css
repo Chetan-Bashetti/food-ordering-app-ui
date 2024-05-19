@@ -6,7 +6,7 @@ html {
 }
 
 #root {
-	height: 100vh;
+	height: -webkit-fill-available;
 	display: flex;
 	--primary-color: #f55a04;
 	--secondary-color: #424242;

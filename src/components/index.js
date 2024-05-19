@@ -7,6 +7,9 @@ import { subCategoriesData, foodItemsData } from 'mock/store';
 
 // STYLES
 import './index.css';
+import Cart from './Cart/Cart';
+import Loader from './Loader/Loader';
+import Status from './Status/Status';
 
 export const AppContext = React.createContext();
 
@@ -20,6 +23,8 @@ const Wrapper = () => {
 		foodItemsData[0]['item_type']
 	);
 	const [totalCharge, setTotalCharge] = React.useState();
+	const [cartView, setCartView] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
 		setdefaultValues();
@@ -79,17 +84,28 @@ const Wrapper = () => {
 				selectedSubCategory,
 				foodItemsList,
 				totalCharge,
+				cartView,
 				handleCategorySelection,
 				handleSubCategorySelection,
 				handleFoodItemSelection,
-				clearSelection
+				clearSelection,
+				setCartView,
+				setIsLoading
 			}}
 		>
-			<div className='main-wrapper'>
-				<Header />
-				<FoodItems />
-				<Footer />
-			</div>
+			{!isLoading ? (
+				<div className='main-wrapper'>
+					<Header />
+					{!cartView ? <FoodItems /> : <Cart />}
+					<Footer />
+				</div>
+			) : (
+				<div className='main-wrapper'>
+					<Header />
+					<Loader />
+					<Status />
+				</div>
+			)}
 		</AppContext.Provider>
 	);
 };

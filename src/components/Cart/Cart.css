@@ -1,0 +1,7 @@
+.cart-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 0 1em;
+	overflow: scroll;
+}
