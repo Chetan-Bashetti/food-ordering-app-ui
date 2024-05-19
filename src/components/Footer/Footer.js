@@ -8,12 +8,16 @@ const Footer = () => {
 	const { totalCharge } = React.useContext(AppContext);
 	return (
 		<div className='footer-wrapper'>
-			<div className='total-charges'>
-				<div className='charges'>Total Charges -</div>
-				<div className='price' style={{ margin: 0, fontSize: '1.8em' }}>
-					₹ {totalCharge}
+			{totalCharge > 0 ? (
+				<div className='total-charges'>
+					<div className='charges'>Total Charges -</div>
+					<div className='price' style={{ margin: 0, fontSize: '1.8em' }}>
+						₹ {totalCharge}
+					</div>
 				</div>
-			</div>
+			) : (
+				''
+			)}
 			<div className='footer-checkout'>
 				<Button title={'Checkout'} />
 				<Button title={'Clear'} />

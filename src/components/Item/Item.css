@@ -6,6 +6,7 @@
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	border-radius: 7px;
 	background: white;
+	border: 2px solid transparent;
 }
 
 .each-item-wrapper {
@@ -51,4 +52,8 @@
 	margin: 0 0.5em;
 	color: var(--primary-color);
 	font-weight: 800;
+}
+
+.selected {
+	border: 2px solid var(--primary-color);
 }

@@ -7,7 +7,7 @@ import './Item.css';
 const Item = ({ item, handleAddToCart }) => {
 	let count = item.count;
 	return (
-		<div className='each-item'>
+		<div className={item.isSelected ? 'each-item selected' : 'each-item'}>
 			<div className='each-item-wrapper'>
 				<div className='item-icon-wrapper'>
 					<RestaurantMenuIcon
