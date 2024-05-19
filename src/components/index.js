@@ -12,7 +12,7 @@ export const AppContext = React.createContext();
 
 const Wrapper = () => {
 	const [table] = React.useState(0);
-	const [foodItemsList, setFoodItemsList] = React.useState(foodItemsData);
+	const [foodItemsList, setFoodItemsList] = React.useState([]);
 	const [selectedCategory, setSelectedCategory] = React.useState(
 		subCategoriesData[0]['belongs_to']
 	);
@@ -22,12 +22,16 @@ const Wrapper = () => {
 	const [totalCharge, setTotalCharge] = React.useState();
 
 	React.useEffect(() => {
+		setdefaultValues();
+	}, []);
+
+	const setdefaultValues = () => {
 		let itemsList = foodItemsData.map((eachItem) => {
 			let updatedObj = { ...eachItem, isSelected: false, count: 0 };
 			return updatedObj;
 		});
 		setFoodItemsList(itemsList);
-	}, []);
+	};
 
 	const handleCategorySelection = (category) => {
 		let filteredSubCategory = subCategoriesData?.filter(
@@ -63,6 +67,10 @@ const Wrapper = () => {
 		setTotalCharge(total);
 	}, [foodItemsList]);
 
+	const clearSelection = () => {
+		setdefaultValues();
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -73,7 +81,8 @@ const Wrapper = () => {
 				totalCharge,
 				handleCategorySelection,
 				handleSubCategorySelection,
-				handleFoodItemSelection
+				handleFoodItemSelection,
+				clearSelection
 			}}
 		>
 			<div className='main-wrapper'>

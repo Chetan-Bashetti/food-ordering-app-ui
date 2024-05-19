@@ -1,6 +1,10 @@
 import './Button.css';
 
-const Button = ({ title }) => {
-	return <button className='button'>{title}</button>;
+const Button = ({ title, click }) => {
+	return (
+		<button className='button' onClick={click}>
+			{title}
+		</button>
+	);
 };
 export default Button;

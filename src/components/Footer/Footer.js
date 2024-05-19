@@ -5,7 +5,7 @@ import './Footer.css';
 import React from 'react';
 
 const Footer = () => {
-	const { totalCharge } = React.useContext(AppContext);
+	const { totalCharge, clearSelection } = React.useContext(AppContext);
 	return (
 		<div className='footer-wrapper'>
 			{totalCharge > 0 ? (
@@ -20,7 +20,7 @@ const Footer = () => {
 			)}
 			<div className='footer-checkout'>
 				<Button title={'Checkout'} />
-				<Button title={'Clear'} />
+				<Button title={'Clear'} click={clearSelection} />
 			</div>
 		</div>
 	);
