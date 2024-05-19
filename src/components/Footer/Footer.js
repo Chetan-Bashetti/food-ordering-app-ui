@@ -5,7 +5,7 @@ import './Footer.css';
 import React from 'react';
 
 const Footer = () => {
-	const { totalCharge, clearSelection, cartView, setCartView, setIsLoading } =
+	const { totalCharge, clearSelection, cartView, setCartView, createOrder } =
 		React.useContext(AppContext);
 
 	return (
@@ -32,13 +32,17 @@ const Footer = () => {
 						}}
 					/>
 				) : (
-					<Button
-						title={'Checkout'}
-						disabled={totalCharge <= 0}
-						click={() => {
-							setIsLoading(true);
-						}}
-					/>
+					<>
+						<Button title={'Add More'} click={() => setCartView(!cartView)} />
+
+						<Button
+							title={'Order'}
+							disabled={totalCharge <= 0}
+							click={() => {
+								createOrder();
+							}}
+						/>
+					</>
 				)}
 			</div>
 		</div>

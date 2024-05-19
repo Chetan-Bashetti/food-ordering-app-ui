@@ -1,15 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import axios from 'axios';
 import Header from './Header/Header';
 import FoodItems from './FoodItems/FoodItems';
 import Footer from './Footer/Footer';
+import Status from './Status/Status';
+import Cart from './Cart/Cart';
+import Waiting from './Waiting/Waiting';
 
 import { subCategoriesData, foodItemsData } from 'mock/store';
 
 // STYLES
 import './index.css';
-import Cart from './Cart/Cart';
 import Loader from './Loader/Loader';
-import Status from './Status/Status';
 
 export const AppContext = React.createContext();
 
@@ -24,18 +27,26 @@ const Wrapper = () => {
 	);
 	const [totalCharge, setTotalCharge] = React.useState();
 	const [cartView, setCartView] = React.useState(false);
+	const [isOccupied, setisOccupied] = React.useState(false);
+	const [orderStatus, setOrderStatus] = React.useState('');
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
-		setdefaultValues();
+		checkTableAvailability();
 	}, []);
 
-	const setdefaultValues = () => {
-		let itemsList = foodItemsData.map((eachItem) => {
-			let updatedObj = { ...eachItem, isSelected: false, count: 0 };
+	const setdefaultValues = (data) => {
+		console.log(data);
+		let itemsList = data.map((eachItem) => {
+			let updatedObj = {
+				...eachItem,
+				isSelected: eachItem.isSelected || false,
+				count: eachItem.count || 0
+			};
 			return updatedObj;
 		});
 		setFoodItemsList(itemsList);
+		setIsLoading(false);
 	};
 
 	const handleCategorySelection = (category) => {
@@ -73,8 +84,51 @@ const Wrapper = () => {
 	}, [foodItemsList]);
 
 	const clearSelection = () => {
-		setdefaultValues();
+		setdefaultValues(foodItemsData);
 	};
+
+	const createOrder = async () => {
+		let res = await axios({
+			method: 'post',
+			url: `${process.env.REACT_APP_API_URL}orders/add-new-order`,
+			data: {
+				order_status: 'pending',
+				table_number: 1,
+				items_orderd: foodItemsList?.filter((curr) => curr.isSelected),
+				total_price: totalCharge.toString()
+			}
+		});
+		setOrderStatus('pending');
+		setisOccupied(true);
+		console.log(res);
+	};
+
+	const checkTableAvailability = async () => {
+		try {
+			setIsLoading(true);
+			let res = await axios({
+				method: 'get',
+				url: `${process.env.REACT_APP_API_URL}tables/available/1`
+			});
+			if (res.data.data.order_status !== 'completed') {
+				setdefaultValues(res.data.data.items_orderd);
+				setOrderStatus(res.data.data.order_status);
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 2000);
+				setisOccupied(true);
+			} else {
+				setdefaultValues(foodItemsData);
+			}
+		} catch (err) {
+			setTimeout(() => {
+				setdefaultValues(foodItemsData);
+			}, 2000);
+			console.log(err);
+		}
+	};
+
+	console.log(process.env.REACT_APP_API_URL, 'REACT_APP_API_URL');
 
 	return (
 		<AppContext.Provider
@@ -85,25 +139,36 @@ const Wrapper = () => {
 				foodItemsList,
 				totalCharge,
 				cartView,
+				orderStatus,
+				isOccupied,
 				handleCategorySelection,
 				handleSubCategorySelection,
 				handleFoodItemSelection,
 				clearSelection,
 				setCartView,
-				setIsLoading
+				setisOccupied,
+				createOrder
 			}}
 		>
 			{!isLoading ? (
-				<div className='main-wrapper'>
-					<Header />
-					{!cartView ? <FoodItems /> : <Cart />}
-					<Footer />
-				</div>
+				<>
+					{!isOccupied ? (
+						<div className='main-wrapper'>
+							<Header />
+							{!cartView ? <FoodItems /> : <Cart />}
+							<Footer />
+						</div>
+					) : (
+						<div className='main-wrapper'>
+							<Header />
+							<Waiting />
+							<Status />
+						</div>
+					)}
+				</>
 			) : (
-				<div className='main-wrapper'>
-					<Header />
+				<div className='loader-wrapper'>
 					<Loader />
-					<Status />
 				</div>
 			)}
 		</AppContext.Provider>

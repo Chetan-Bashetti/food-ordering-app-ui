@@ -5,3 +5,15 @@
 	padding: 0 1em;
 	overflow: scroll;
 }
+
+.center {
+	justify-content: center;
+	align-items: center;
+}
+
+.go-back {
+	color: var(--primary-color);
+	padding: 1em;
+	border: 1px solid var(--primary-color);
+	cursor: pointer;
+}

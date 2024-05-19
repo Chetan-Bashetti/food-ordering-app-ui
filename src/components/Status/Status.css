@@ -1,7 +1,36 @@
 .status-wrapper {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.status-summary {
+	flex: 1;
+	overflow: scroll;
+	display: flex;
+	flex-direction: column;
+	padding: 1em;
+}
+
+.order-summary-title {
+	margin-bottom: 1em;
+	text-align: center;
+	font-weight: 700;
+}
+
+.each-item-summary {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0.2em;
+}
+
+.status-cost-summary {
 	padding: 1em;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	justify-content: space-between;
 	box-shadow: 0 -2px 6px 0 #dddddd;
 	align-items: center;
@@ -24,7 +53,11 @@
 	background: var(--primary-color);
 }
 
-.delivered {
+.preparing {
+	background: yellowgreen;
+}
+
+.completed {
 	background: #5fb100;
 }
 
