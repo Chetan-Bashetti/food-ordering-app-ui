@@ -147,7 +147,8 @@ const Wrapper = () => {
 				clearSelection,
 				setCartView,
 				setisOccupied,
-				createOrder
+				createOrder,
+				checkTableAvailability
 			}}
 		>
 			{!isLoading ? (
