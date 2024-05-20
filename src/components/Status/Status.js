@@ -18,11 +18,18 @@ const Status = () => {
 				<div className='order-summary-title'>Order summary</div>
 				{foodItemsList
 					?.filter((curr) => curr.isSelected)
-					.map((eachItem) => (
+					.map((eachItem, id) => (
 						<div className='each-item-summary' key={eachItem.item_id}>
-							<div className='each-item-title'>{eachItem.item_name} -</div>
+							<div className='each-item-title'>
+								{id + 1}) {eachItem.item_name} -
+							</div>
 
-							<div className='order-summary-text'>₹ {eachItem.price}.00</div>
+							<div className='order-summary-text'>
+								₹ {eachItem.price}.00 * {eachItem.count} ={' '}
+								<strong>
+									₹ {parseInt(eachItem.price) * parseInt(eachItem.count)}
+								</strong>
+							</div>
 						</div>
 					))}
 			</div>

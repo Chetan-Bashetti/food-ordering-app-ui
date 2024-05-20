@@ -113,22 +113,18 @@ const Wrapper = () => {
 			if (res.data.data.order_status !== 'completed') {
 				setdefaultValues(res.data.data.items_orderd);
 				setOrderStatus(res.data.data.order_status);
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 2000);
+				setIsLoading(false);
 				setisOccupied(true);
 			} else {
 				setdefaultValues(foodItemsData);
 			}
 		} catch (err) {
-			setTimeout(() => {
-				setdefaultValues(foodItemsData);
-			}, 2000);
+			setdefaultValues(foodItemsData);
+			setCartView(false);
+			setisOccupied(false);
 			console.log(err);
 		}
 	};
-
-	console.log(process.env.REACT_APP_API_URL, 'REACT_APP_API_URL');
 
 	return (
 		<AppContext.Provider
