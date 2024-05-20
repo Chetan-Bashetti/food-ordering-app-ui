@@ -1,10 +1,11 @@
 import React from 'react';
 import { AppContext } from 'components';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 import './Status.css';
 
 const Status = () => {
-	const { foodItemsList, totalCharge, orderStatus } =
+	const { foodItemsList, totalCharge, orderStatus, checkTableAvailability } =
 		React.useContext(AppContext);
 
 	const cartCount = foodItemsList
@@ -25,6 +26,8 @@ const Status = () => {
 						</div>
 					))}
 			</div>
+			<div className={`status-text ${orderStatus}`}>{orderStatus}</div>
+			<div className='pending-text'></div>
 			<div className='status-cost-summary'>
 				<div>
 					<div>
@@ -36,7 +39,9 @@ const Status = () => {
 						<span className='order-summary-text'>₹ {totalCharge}</span>
 					</div>
 				</div>
-				<div className={`status-text ${orderStatus}`}>{orderStatus}</div>
+				<div className='refresh-icon' onClick={() => checkTableAvailability()}>
+					<RefreshIcon />
+				</div>
 			</div>
 		</div>
 	);
