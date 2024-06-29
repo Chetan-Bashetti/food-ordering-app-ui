@@ -17,7 +17,7 @@ import Loader from './Loader/Loader';
 export const AppContext = React.createContext();
 
 const Wrapper = () => {
-	const [table] = React.useState(0);
+	const [table, setTable] = React.useState(0);
 	const [foodItemsList, setFoodItemsList] = React.useState([]);
 	const [selectedCategory, setSelectedCategory] = React.useState(
 		subCategoriesData[0]['belongs_to']
@@ -32,7 +32,9 @@ const Wrapper = () => {
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	React.useEffect(() => {
-		checkTableAvailability();
+		let currentTable = window.location.href.split('/')?.at(-1);
+		setTable(currentTable);
+		checkTableAvailability(currentTable);
 	}, []);
 
 	const setdefaultValues = (data) => {
@@ -93,7 +95,7 @@ const Wrapper = () => {
 			url: `${process.env.REACT_APP_API_URL}orders/add-new-order`,
 			data: {
 				order_status: 'pending',
-				table_number: 1,
+				table_number: table,
 				items_orderd: foodItemsList?.filter((curr) => curr.isSelected),
 				total_price: totalCharge.toString()
 			}
@@ -103,12 +105,12 @@ const Wrapper = () => {
 		console.log(res);
 	};
 
-	const checkTableAvailability = async () => {
+	const checkTableAvailability = async (currentTable) => {
 		try {
 			setIsLoading(true);
 			let res = await axios({
 				method: 'get',
-				url: `${process.env.REACT_APP_API_URL}tables/available/1`
+				url: `${process.env.REACT_APP_API_URL}tables/available/${currentTable}`
 			});
 			if (res.data.data.order_status !== 'completed') {
 				setdefaultValues(res.data.data.items_orderd);
